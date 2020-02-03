@@ -1,3 +1,5 @@
+require 'pry'
+
 class CashRegister
     attr_accessor :total, :discount, :price, :items
     def initialize (discount = 0)
@@ -7,7 +9,7 @@ class CashRegister
     end
 
     def add_item(name, price, quantity = 1)
-        @price = price
+        @price = price * quantity
         @total += price * quantity
         if quantity > 1
             quantity.times.each do |num|
@@ -30,9 +32,13 @@ class CashRegister
     end
 
     def void_last_transaction
+        # binding.pry
         @total = @total - @price
-        if @items.length == 0 
-            return self.total = 0.0
+        # binding.pry
+        if @items.length < 1
+            return @total = 0.0
+        else 
+            return @total
         end
     end
 end
